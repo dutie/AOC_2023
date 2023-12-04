@@ -17,7 +17,7 @@ class Day4(Day):
             input = self.get_input(1)
         input = self.parse_input(input)
         correctGames = []
-        for game, own, actual in l:
+        for game, own, actual in input:
             numOwn = own.split(' ')
             numAct = actual.split(' ')
             correct = 0
