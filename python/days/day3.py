@@ -67,7 +67,6 @@ class Day3(Day):
         # return number[::-1]
 
     def make_number(self, start, end, rowList):
-        # Use a list to store characters and join them at the end
         number_chars = []
         for c in range(start, end+1):
             number_chars.append(rowList[c])
@@ -77,7 +76,7 @@ class Day3(Day):
     def check_special_neighbors(self, coordinates: Tuple[int, int], matrix: List[List[str]]):
         row, col = coordinates
         neighboring_numbers = []
-        visited = set()  # Use a set for faster lookups
+        visited = set()
 
         for r in range(row - 1, row + 2):
             for c in range(col - 1, col + 2):
