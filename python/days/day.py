@@ -7,10 +7,6 @@ class Day(ABC):
         self.testLocation  = "../tests/day" + str(day) + "_"
 
     @abstractmethod
-    def parse_input(self, partNumber: int):
-        raise NotImplementedError
-
-    @abstractmethod
     def get_input(self, partNumber: int):
         with open(self.inputLocation + str(partNumber) + ".txt") as f:
             return f.read().splitlines()
@@ -55,15 +51,17 @@ class Day(ABC):
                 if line == "OUTPUTS:":
                     flagIn = False
                     continue
-                print(line)
                 if flagIn:
                     if line == "":
+                        continue
+                    elif line == "NEXT":
                         inputs.append(input)
                         input = []
                     else:
                         input.append(line)
                 else:
-                    outcomes.append(line)   
+                    outcomes.append(line)
+            inputs.append(input)
         return inputs, outcomes
         
     def run(self):
