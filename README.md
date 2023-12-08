@@ -12,7 +12,7 @@ Python vs. Cpp
 |  Day 04	| [✅](./python/days/day4.py) | [❌](./cpp/days/day4.cpp) |  Day 13	|    [❌](./python/day13.py)     |  [❌](./cpp/day13.cpp)     	|  Day 22 | [❌](./python/day22.py)      | [❌](./cpp/day22.cpp)        	|
 |  Day 05	| [✅](./python/days/day5.py) | [❌](./cpp/days/day5.cpp) |  Day 14	|    [❌](./python/day14.py)     |  [❌](./cpp/day14.cpp)     	|  Day 23 | [❌](./python/day23.py)      | [❌](./cpp/day23.cpp)        	|
 |  Day 06	| [✅](./python/days/day6.py) | [❌](./cpp/days/day6.cpp) |  Day 15	|    [❌](./python/day15.py)     |  [❌](./cpp/day15.cpp)     	|  Day 24 | [❌](./python/day24.py)      | [❌](./cpp/day24.cpp)        	|
-|  Day 07	| [❌](./python/days/day7.py) | [❌](./cpp/days/day7.cpp) |  Day 16	|    [❌](./python/day16.py)     |  [❌](./cpp/day16.cpp)     	|  Day 25 | [❌](./python/day25.py)      | [❌](./cpp/day25.cpp)        	|
+|  Day 07	| [✅](./python/days/day7.py) | [❌](./cpp/days/day7.cpp) |  Day 16	|    [❌](./python/day16.py)     |  [❌](./cpp/day16.cpp)     	|  Day 25 | [❌](./python/day25.py)      | [❌](./cpp/day25.cpp)        	|
 |  Day 08	| [❌](./python/days/day8.py) | [❌](./cpp/days/day8.cpp) |  Day 17	|    [❌](./python/day17.py)     |  [❌](./cpp/day17.cpp)     	|         |            |        	|
 |  Day 09	| [❌](./python/days/day9.py) | [❌](./cpp/days/day9.cpp) |  Day 18	|    [❌](./python/day18.py)     |  [❌](./cpp/day18.cpp)     	|         |            |        	|
 
@@ -30,10 +30,3 @@ No issues found.
 
 ---
 
-## Personnal Feedback
-
-### Day 01:
-#### [Cpp](./cpp/day1.cpp):
-Hard to load in the data and create an abstract class for running everything later on. Everything else was pretty easy.
-#### [Python](./python/day1.python):
-No issues found.
