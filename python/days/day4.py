@@ -9,6 +9,10 @@ class Day4(Day):
     def parse_input(self, data):
         pattern = re.compile(r'Card\s+(\d+):\s+(.*)\s+\|\s+(.*)')
         cards = [pattern.match(i).groups() for i in data if pattern.match(i)]
+        print(cards)
+        # print(cards)
+        # cards = [[re.split(r'\s+', part.strip()) for part in row.split(': ')[1].split(' | ')] for row in data]
+        # print(cards)
         return cards
 
     def do_part_1(self, input = None):
@@ -36,17 +40,16 @@ class Day4(Day):
         print(f"[PART 2]: Running part 2...")
         if input is None:
             input = self.get_input(2)
-        input = self.parse_input(input)
-        number_of_cards = [1 for _ in range(len(input))]
-        for card_number, card in enumerate(input):
+        parsedData = self.parse_input(input)
+        number_of_cards = [1 for _ in range(len(parsedData))]
+        for card_number, (_, own, actual) in enumerate(parsedData):
+            card = [own, actual]
             won = 0
             for number in card[0]:
                 if number in card[1]:
                     won += 1 
             for i in range(won):
-                print(card_number + (i + 1))
                 number_of_cards[card_number + (i + 1)] += (1 * number_of_cards[card_number])
-            print(f"Card {card_number + 1} won {won * number_of_cards[card_number]} extra cards.")
         result = sum(number_of_cards)
         print(f"[PART 2]: {result}")
         return result
@@ -54,5 +57,3 @@ class Day4(Day):
         return super().do_test(partNumber)
     def get_input(self, partNumber: int):
         return super().get_input(partNumber)
-
-
