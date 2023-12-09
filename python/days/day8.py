@@ -24,14 +24,14 @@ class Day8(Day):
         return instructions, node_neighbor_pairs
 
     def loop(self, instructions):
-        instructions = [0 if instruction == "L" else 1 for instruction in instructions]
+        instructions = [instruction == "R" for instruction in instructions]
         while True:
             yield from instructions
             
-    def do_part(self,node, instructions, nnp):
+    def do_part(self,node, instructions, nnp, end="ZZZ"):
         step_count = 0
         for instruction in self.loop(instructions):
-            if node == "ZZZ":
+            if node == end or (end != "ZZZ" and node.endswith(end)):
                 break
             step_count += 1
             node = nnp[node][instruction]
@@ -42,7 +42,6 @@ class Day8(Day):
         if input_ is None:
             input_ = self.get_input(1)
         instructions, nnp = self.parse_input(input_)
-        
         node = "AAA"
         step_count = self.do_part(node, instructions, nnp)
         
@@ -56,7 +55,7 @@ class Day8(Day):
         instructions, nnp = self.parse_input(input_)
         step_counts = []
         for node in filter(lambda x: x[-1] == 'A', nnp):
-            step_counts.append(self.do_part(node, instructions, nnp))
+            step_counts.append(self.do_part(node, instructions, nnp, "Z"))
         lcm = math.lcm(*step_counts)
         print(lcm)
         return str(lcm)
