@@ -11,16 +11,12 @@ class Day11(Day):
         with open(self.inputLocation + str(part_number) + ".txt") as file:
             return file.readlines()
 
-    def parse_input(self, data, part_number: int = 1):
+    def parse_input(self, data, expansion: int = 1):
         # I first forgot about accumulate.
         # empty_rows = list(map(lambda x: sum(x[1]), enumerate(map(lambda row: 1 if all(space == "." for space in row) else 0, data))))
         empty_rows = list(itertools.accumulate([1 if "#" not in row else 0 for row in data]))
         empty_cols = list(itertools.accumulate([1 if all(row[i] == "." for row in data) else 0 for i in range(len(data[0]))]))
-        print(empty_rows)
-        print(f"CHECK ROWS:\n{list(zip(list(range(len(data))), empty_rows))}")
-        print()
-        print(f"CHECK COLS:\n{list(zip(list(range(len(data[0]))), empty_cols))}")
-        coords = [(erow+empty_rows[erow], ecol+empty_cols[ecol]) for erow, line in enumerate(data) for ecol, col in enumerate(line) if col == '#']
+        coords = [(erow+(empty_rows[erow]*expansion), ecol+(empty_cols[ecol]*expansion)) for erow, line in enumerate(data) for ecol, col in enumerate(line) if col == '#']
         return coords
     
     def mnh_distance(self, g1, g2):
@@ -41,9 +37,10 @@ class Day11(Day):
         print(f"[PART 2]: Running part 2...")
         if input_ is None:
             input_ = self.get_input(2)
-
-        print(None)
-        return str(None)
+        coords = self.parse_input(input_, 1000000-1)
+        res = sum(self.mnh_distance(galaxy1, galaxy2) for (galaxy1, galaxy2) in itertools.combinations(coords, 2))
+        print(res)
+        return str(res)
 
     def do_test(self, part_number):
         return super().do_test(part_number)
