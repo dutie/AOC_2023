@@ -22,7 +22,6 @@ class Day11(Day):
     def mnh_distance(g1, g2):
         x1,y1 = g1
         x2,y2 = g2
-        print("100"*100)
         return abs(x1 - x2) + abs(y1 - y2)
 
     def do_part_1(self, input_=None):
