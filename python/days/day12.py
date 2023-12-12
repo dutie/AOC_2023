@@ -10,39 +10,35 @@ class Day12(Day):
         with open(self.inputLocation + str(part_number) + ".txt") as file:
             return file.readlines()
 
-    def grouped(self, tup):
+    def grouped(self, dupId, rowId, tup):
         row, dup = tup
-        dupId = 0
-        tempPos = [0,0]
-        charId = 0
-        combs = 0
-        print()
-        while charId < len(row) and dupId < len(dup):
-            print(f"ROW: {row} {dup}")
-            spacing = " "*(5+charId)
-            print(f"{spacing}^ {dupId}:{dup[dupId]}")
-            char = row[charId]
-            if char == "#":
-                tempPos[0] += 1
-            if char == "?":
-                tempPos[1] += 1
-            if char == "." or charId == len(row) - 1:
-                if tempPos[1] > 0:
-                    for remDup in range(len(dup) - dupId):
-                    # combs += math.factorial(n) / (math.factorial(r)*(n-math.factorial(r)))
-                        r = dup[dupId+remDup] - tempPos[0] # '#.#.??' 1
-                        n = tempPos[1]
-                        combs += math.comb(n+r-1, r)
-                dupId += 1
-                tempPos = [0,0]
-            charId += 1
-                    
-     
-        return combs
-                
+        if dupId >= len(dup):
+            if rowId < len(row) and '#' in row[dupId:]:
+                return 0
+            return 1
+        if rowId >= len(row):
+            return 0
+
+        res = None
+        groups = dup[dupId]
+        char = row[rowId]
+        if char == '.':
+            res = self.grouped(dupId, rowId + 1, (row, dup))
+        elif char == '#':
+            if '.' not in row[rowId:rowId + groups] and row[rowId + groups] != "#":
+                res = self.grouped(dupId + 1, rowId + groups + 1, (row, dup))
+            else:
+                res = 0
+        elif char == '?':
+            if '.' not in row[rowId:rowId + groups] and row[rowId + groups] != "#":
+                res = self.grouped(dupId + 1, rowId + groups + 1, (row, dup))
+            else:
+                res = self.grouped(dupId, rowId + 1, (row, dup))
+        return res
+
     def parse_input(self, data, part_number: int = 1):
-        tuples = [(row, eval(dup)) for line in data for row, dup in [line.split(' ')]]
-        res = list(map(self.grouped, tuples))
+        tuples = [(row + ".", eval(dup)) for line in data for row, dup in [line.split(' ')]]
+        res = sum(list(map(lambda tuple: self.grouped(0, 0, tuple), tuples)))
         return res
 
     def do_part_1(self, input_=None):
