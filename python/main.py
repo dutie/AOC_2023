@@ -21,7 +21,7 @@ def main():
 
     # Create an instance of the correct Day class (e.g., Day1)
     day_class_name = f'Day{day}'
-    day_class = getattr(day_module, day_class_name)()
+    day_class: Day = getattr(day_module, day_class_name)()
 
     # Run the specified part
 
