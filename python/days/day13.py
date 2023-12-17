@@ -26,33 +26,28 @@ class Day13(Day):
         lines.append(cur)
         return lines
     
-    def smudge(self, above, below):
-        cnt = 0
-        for i in range(len(above)):
-            if cnt > 1:
-                return False
-            if above[i] != below[i]:
-                cnt += 1
-                above[i] = below[i]
-        if cnt == 1:
-            return True
-        return False
-
+    def smudge(self, above, below, smudge_fixed):
+        for i, (ab, be) in enumerate(zip(above, below)):
+            if ab != be:
+                if smudge_fixed:
+                    return False
+            for lc, rc in zip(ab, be):
+                if lc != rc:
+                    if smudge_fixed:
+                        return False
+                    smudge_fixed = True
+        return smudge_fixed
 
     
     def find_mirror_smudge(self, grid):
-        res = []
+        smudge_fixed =False
         for r in range(1, len(grid)):
             above = grid[:r][::-1]
             below = grid[r:]
-            
-            above = above[:len(below)]
-            below = below[:len(above)]
-            
-            if above == below or self.smudge(above, below):
-                res.append(r)
-        
-        return res
+
+            if self.smudge(above, below, smudge_fixed):
+                return r
+        return 0
 
     def find_mirror(self, grid):
         for r in range(1, len(grid)):
@@ -93,18 +88,15 @@ class Day13(Day):
             grids = list(map(self.parse_input, input_))
         else:
             grids = self.parse_test(input_)
-        
-        rows = []
-        cols = []
+
+
+        total = 0
         for grid in grids:
 
-            rows.extend(self.find_mirror_smudge(grid))
+            total += self.find_mirror_smudge(grid) * 100
 
-            cols.extend(self.find_mirror_smudge(list(zip(*grid))))
-        print(rows)
-        print(cols)
+            total += self.find_mirror_smudge(list(zip(*grid)))
 
-        total = sum(row * 100 for row in rows) + sum(cols)
         print(total)
         return str(total)
 
